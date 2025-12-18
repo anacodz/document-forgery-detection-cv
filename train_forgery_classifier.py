@@ -164,7 +164,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
-    # Hyperparameters – you can tweak these
+    # Hyperparameters - you can tweak these
     batch_size = 64
     num_epochs = 5
     lr = 1e-3
@@ -178,8 +178,8 @@ def main():
     train_size = len(full_train) - val_size
     train_dataset, val_dataset = random_split(full_train, [train_size, val_size])
 
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, ImageFilternum_workers=0)
-    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, ImageFilternum_workers=0)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
     # Model, loss, optimizer
     model = build_model(num_classes=2).to(device)
