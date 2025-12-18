@@ -9,6 +9,7 @@ from torch.utils.data import Dataset, DataLoader, random_split
 from torchvision import datasets, transforms, models
 from torchvision.transforms import functional as F
 from tqdm import tqdm
+from PIL import Image, ImageFilter
 
 
 class SyntheticForgeryDataset(Dataset):
@@ -75,7 +76,7 @@ class SyntheticForgeryDataset(Dataset):
         img = F.to_pil_image(img_tensor)
 
         # Optional: small Gaussian blur
-        img = img.filter(F.ImageFilter.GaussianBlur(radius=1))
+        img = img.filter(ImageFilter.GaussianBlur(radius=1))
 
         # Final tensor + normalization
         img_tensor = self.to_tensor_norm(img)
@@ -177,8 +178,8 @@ def main():
     train_size = len(full_train) - val_size
     train_dataset, val_dataset = random_split(full_train, [train_size, val_size])
 
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
-    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, ImageFilternum_workers=0)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, ImageFilternum_workers=0)
 
     # Model, loss, optimizer
     model = build_model(num_classes=2).to(device)
